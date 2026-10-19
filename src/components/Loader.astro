@@ -1,0 +1,74 @@
+<div id="loader" role="status" aria-live="polite">
+	<h1 class="name">Ignacio</h1>
+	<p class="label">Portafolio cargando</p>
+	<div class="bar"><span></span></div>
+</div>
+
+<style>
+	#loader {
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1.25rem;
+		background: var(--bg);
+		transition: opacity 0.5s ease, visibility 0.5s ease;
+	}
+	#loader.done {
+		opacity: 0;
+		visibility: hidden;
+	}
+	.name {
+		margin: 0;
+		font-size: clamp(2.5rem, 8vw, 4rem);
+		font-weight: 600;
+		color: #0f172a;
+		animation: rise 0.8s ease both;
+	}
+	.label {
+		margin: 0;
+		font-size: 0.85rem;
+		letter-spacing: 0.4em;
+		text-transform: uppercase;
+		color: #64748b;
+		animation: rise 0.8s 0.2s ease both;
+	}
+	.bar {
+		width: min(260px, 70vw);
+		height: 2px;
+		background: #e2e8f0;
+		overflow: hidden;
+		animation: rise 0.8s 0.4s ease both;
+	}
+	.bar span {
+		display: block;
+		height: 100%;
+		background: #0f172a;
+		transform-origin: left;
+		animation: fill 1.8s 0.4s ease-in-out forwards;
+		transform: scaleX(0);
+	}
+	@keyframes rise {
+		from { opacity: 0; transform: translateY(12px); }
+		to { opacity: 1; transform: none; }
+	}
+	@keyframes fill {
+		to { transform: scaleX(1); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.name, .label, .bar, .bar span { animation-duration: 0.01s; animation-delay: 0s; }
+	}
+</style>
+
+<script>
+	const loader = document.getElementById('loader');
+	// Mínimo 2.4s para que la animación termine, y espera a que cargue la página.
+	const minTime = new Promise((r) => setTimeout(r, 2400));
+	const loaded = new Promise((r) =>
+		document.readyState === 'complete' ? r(null) : window.addEventListener('load', () => r(null)),
+	);
+	Promise.all([minTime, loaded]).then(() => loader?.classList.add('done'));
+</script>

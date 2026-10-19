@@ -1,0 +1,382 @@
+---
+import profileImg from '../assets/images/ignacio-isturiz-retrato.jpg';
+
+const cvUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/cv.pdf`;
+const stats = [
+	{ label: 'AI Engineer', icon: 'ai' },
+	{ label: 'Backend y Frontend', icon: 'code' },
+	{ label: 'Infraestructura y Cloud', icon: 'cloud' },
+];
+const icons: Record<string, string> = {
+	ai: '<rect x="5" y="5" width="14" height="14" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3M9.500 15l2.500-6 2.500 6M10.300 13h3.400"/>',
+	code: '<path d="m8 8-4 4 4 4M16 8l4 4-4 4"/>',
+	cloud: '<path d="M17.500 19a4.500 4.500 0 1 0-1.400-8.800A6 6 0 0 0 4.500 12 3.500 3.500 0 0 0 6 19z"/>',
+};
+const socials = [
+	{
+		label: 'GitHub',
+		href: 'https://github.com/Ignacio-Isturiz',
+		path: '<path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.5a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6 0C6.5 2.7 5.5 3 5.5 3a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.8 5.6 5.5 6a3 3 0 0 0-.8 2.3V21"/>',
+	},
+	{
+		label: 'LinkedIn',
+		href: 'https://www.linkedin.com/in/jose-ignacio-ist%C3%BAriz-rabert-b82115244/?isSelfProfile=true',
+		path: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>',
+	},
+];
+---
+
+<section id="inicio" class="hero">
+	<div class="copy">
+		<h1>Hola, soy <span>Ignacio</span></h1>
+		<p class="role"><span id="typed"></span><i class="caret"></i></p>
+		<p class="bio">
+			Desarrollo soluciones de backend, integración de APIs y automatización de procesos.
+			Lidero iniciativas de investigación aplicada en inteligencia artificial: LLMs, RAG y
+			aprendizaje automático.
+		</p>
+		<div class="actions">
+			<a class="btn primary" href="#proyectos">Ver proyectos →</a>
+			<button class="btn" id="cv-open" type="button" aria-controls="cv-panel" aria-expanded="false">Vista previa CV</button>
+		</div>
+		<ul class="socials" aria-label="Redes">
+			{socials.map((s) => (
+				<li>
+					<a href={s.href} aria-label={s.label} target="_blank" rel="noopener noreferrer">
+						<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={s.path} />
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<div class="visual">
+		<img src={profileImg.src} alt="José Ignacio Istúriz Rabert" class="photo" />
+		<ul class="stats">
+			{stats.map((s, i) => (
+				<li style={`--i:${i}`}>
+					<span class="ico">
+						<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={icons[s.icon]} />
+					</span>
+					{s.label}
+				</li>
+			))}
+		</ul>
+	</div>
+</section>
+
+<div id="cv-backdrop" hidden></div>
+<aside id="cv-panel" aria-label="Vista previa del CV" aria-hidden="true" inert>
+	<header>
+		<h2>Hoja de vida</h2>
+		<div class="tools">
+			<a href={cvUrl} download="CV_Jose_Ignacio_Isturiz.pdf" aria-label="Descargar CV">Descargar</a>
+			<button type="button" id="cv-close" aria-label="Cerrar vista previa">✕</button>
+		</div>
+	</header>
+	<iframe title="CV de Ignacio" data-src={cvUrl}></iframe>
+</aside>
+
+<style>
+	.hero {
+		min-height: 100svh;
+		display: grid;
+		grid-template-columns: 1.1fr 1fr;
+		align-items: center;
+		gap: 3rem;
+		width: min(1100px, 100% - 3rem);
+		margin-inline: auto;
+		padding: 7rem 0 3rem;
+	}
+	h1 {
+		margin: 0;
+		font-size: clamp(2.8rem, 7vw, 5rem);
+		line-height: 1.05;
+	}
+	h1 span {
+		/* Padding para que el degradado no recorte los trazos que sobresalen de la fuente. */
+		display: inline-block;
+		padding: 0.12em 0.2em;
+		margin: -0.12em -0.2em;
+		background: linear-gradient(90deg, var(--text), var(--muted));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+	.role {
+		margin: 1rem 0;
+		font-size: clamp(1.4rem, 3vw, 2rem);
+		min-height: 1.3em;
+	}
+	.caret {
+		display: inline-block;
+		width: 2px;
+		height: 1em;
+		margin-left: 2px;
+		vertical-align: -0.12em;
+		background: var(--text);
+		animation: blink 1s steps(1) infinite;
+	}
+	.bio {
+		max-width: 40ch;
+		color: var(--muted);
+		line-height: 1.7;
+	}
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+	.btn {
+		padding: 0.85rem 1.6rem;
+		border: 1px solid var(--border);
+		border-radius: 0.75rem;
+		background: var(--surface);
+		color: var(--text);
+		text-decoration: none;
+		transition: transform 0.2s, box-shadow 0.2s;
+	}
+	button.btn {
+		font: inherit;
+		cursor: pointer;
+	}
+	.btn.primary {
+		background: var(--accent);
+		color: var(--on-accent);
+		border-color: var(--accent);
+	}
+	.btn:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow);
+	}
+	.socials {
+		display: flex;
+		gap: 0.75rem;
+		margin: 2.5rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.socials a {
+		display: grid;
+		place-items: center;
+		width: 2.6rem;
+		height: 2.6rem;
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		background: var(--surface);
+		color: var(--text);
+		transition: transform 0.2s;
+	}
+	.socials a:hover {
+		transform: translateY(-2px);
+	}
+
+	.visual {
+		position: relative;
+		display: grid;
+		place-items: center;
+	}
+	.photo {
+		width: min(400px, 80vw);
+		aspect-ratio: 1;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 8px solid var(--surface);
+		box-shadow: var(--shadow);
+		background: #111;
+		object-fit: cover;
+		object-position: center;
+	}
+	.stats {
+		position: absolute;
+		left: -2rem;
+		bottom: 1rem;
+		display: grid;
+		gap: 0.8rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.stats li {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.7rem 1.1rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 0.9rem;
+		box-shadow: var(--shadow);
+		font-size: 0.85rem;
+		animation: float 4s ease-in-out infinite;
+		animation-delay: calc(var(--i) * -1.2s);
+	}
+	.ico {
+		display: grid;
+		place-items: center;
+		width: 2.1rem;
+		height: 2.1rem;
+		border-radius: 0.6rem;
+		background: var(--accent);
+		color: var(--on-accent);
+	}
+	#cv-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 200;
+		background: rgb(0 0 0 / 0.35);
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	#cv-backdrop.open {
+		opacity: 1;
+	}
+	#cv-panel {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 201;
+		display: flex;
+		flex-direction: column;
+		width: min(640px, 100%);
+		background: var(--surface);
+		border-left: 1px solid var(--border);
+		box-shadow: var(--shadow);
+		transform: translateX(100%);
+		transition: transform 0.35s ease;
+	}
+	#cv-panel.open {
+		transform: none;
+	}
+	#cv-panel header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 1.25rem;
+		border-bottom: 1px solid var(--border);
+	}
+	#cv-panel h2 {
+		margin: 0;
+		font-size: 1.1rem;
+	}
+	.tools {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+	.tools a {
+		color: var(--text);
+		font-size: 0.9rem;
+	}
+	.tools button {
+		font: inherit;
+		font-size: 1.1rem;
+		color: var(--text);
+		background: none;
+		border: 0;
+		cursor: pointer;
+	}
+	#cv-panel iframe {
+		flex: 1;
+		width: 100%;
+		border: 0;
+		background: #fff;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		#cv-panel,
+		#cv-backdrop {
+			transition: none;
+		}
+	}
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+	@keyframes float {
+		50% {
+			transform: translateY(-5px);
+		}
+	}
+	@media (max-width: 860px) {
+		.hero {
+			grid-template-columns: 1fr;
+			text-align: center;
+			padding-top: 6.5rem;
+		}
+		.bio {
+			margin-inline: auto;
+		}
+		.actions,
+		.socials {
+			justify-content: center;
+		}
+		.stats {
+			position: static;
+			margin-top: 1.5rem;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.stats li,
+		.caret {
+			animation: none;
+		}
+	}
+</style>
+
+<script>
+	const el = document.getElementById('typed');
+	const words = ['Ingeniero Informático','Ingenierio IA', 'Desarrollador Backend'];
+	const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (el && reduce) el.textContent = words[0];
+	else if (el) {
+		let w = 0,
+			c = 0,
+			del = false;
+		const tick = () => {
+			const word = words[w];
+			c += del ? -1 : 1;
+			el.textContent = word.slice(0, c);
+			let wait = del ? 40 : 90;
+			if (!del && c === word.length) {
+				del = true;
+				wait = 1600;
+			} else if (del && c === 0) {
+				del = false;
+				w = (w + 1) % words.length;
+				wait = 400;
+			}
+			setTimeout(tick, wait);
+		};
+		// Arranca tras la pantalla de carga.
+		setTimeout(tick, 2600);
+	}
+
+	const panel = document.getElementById('cv-panel') as HTMLElement;
+	const backdrop = document.getElementById('cv-backdrop') as HTMLElement;
+	const openBtn = document.getElementById('cv-open') as HTMLButtonElement;
+	const frame = panel.querySelector('iframe') as HTMLIFrameElement;
+
+	function setCv(open: boolean) {
+		if (open && !frame.src) frame.src = `${frame.dataset.src}#toolbar=0&navpanes=0&view=FitH`;
+		backdrop.hidden = false;
+		requestAnimationFrame(() => {
+			panel.classList.toggle('open', open);
+			backdrop.classList.toggle('open', open);
+		});
+		panel.inert = !open;
+		panel.setAttribute('aria-hidden', String(!open));
+		openBtn.setAttribute('aria-expanded', String(open));
+		document.body.style.overflow = open ? 'hidden' : '';
+		if (!open) setTimeout(() => (backdrop.hidden = true), 300);
+		else (document.getElementById('cv-close') as HTMLElement).focus();
+		if (!open) openBtn.focus();
+	}
+	openBtn.addEventListener('click', () => setCv(true));
+	document.getElementById('cv-close')?.addEventListener('click', () => setCv(false));
+	backdrop.addEventListener('click', () => setCv(false));
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && panel.classList.contains('open')) setCv(false);
+	});
+</script>

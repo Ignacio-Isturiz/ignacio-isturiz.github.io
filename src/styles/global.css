@@ -1,0 +1,51 @@
+@font-face {
+	font-family: 'Montra';
+	src: url('../assets/fonts/Montra.otf') format('opentype');
+	font-display: swap;
+}
+
+:root {
+	--bg: #f7f7f8;
+	--surface: #ffffff;
+	--text: #0f172a;
+	--muted: #64748b;
+	--border: #e2e8f0;
+	--accent: #0f172a;
+	--on-accent: #ffffff;
+	--shadow: 0 8px 30px rgb(15 23 42 / 0.08);
+}
+
+:root[data-theme='dark'] {
+	--bg: #0b0f1a;
+	--surface: #151b2b;
+	--text: #f1f5f9;
+	--muted: #94a3b8;
+	--border: #263045;
+	--accent: #f1f5f9;
+	--on-accent: #0f172a;
+	--shadow: 0 8px 30px rgb(0 0 0 / 0.4);
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	font-family: 'Montra', system-ui, sans-serif;
+	background: var(--bg);
+	color: var(--text);
+	transition: background 0.3s, color 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}

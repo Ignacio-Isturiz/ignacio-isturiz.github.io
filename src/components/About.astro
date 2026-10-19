@@ -1,0 +1,179 @@
+---
+import profileImg from '../assets/images/ignacio-isturiz-retrato.jpg';
+
+const whoAmI = 'Desarrollador de software orientado al backend, la integración de APIs y la automatización de procesos. Con experiencia en implementación de soluciones empresariales usando Python, Odoo y Docker. Soy líder de iniciativas de investigación aplicada en inteligencia artificial, con experiencia técnica en LLMs, RAG, aprendizaje automático y soluciones basadas en datos. Creo en escribir código limpio, escalable y bien documentado, y en la importancia de la comunicación clara para entregar soluciones que realmente impacten.';
+
+const details = [
+	{ label: 'Nombre', value: 'José Ignacio Istúriz Rabert' },
+	{ label: 'Ubicación', value: 'Medellín, Colombia' },
+	{ label: 'Email', value: 'ignacioisturizr@gmail.com' },
+	{ label: 'Educación', value: 'Ingeniería Informática - UNAULA' },
+];
+---
+
+<section id="sobre-mi" class="about">
+	<div class="container">
+		<h2>Sobre mí</h2>
+
+		<div class="grid">
+			<div class="photo-wrapper">
+				<img src={profileImg.src} alt="José Ignacio Istúriz Rabert" class="photo" />
+			</div>
+
+			<div class="content">
+				<div class="intro-section">
+					<h3>Sobre mí</h3>
+					<p>{whoAmI}</p>
+				</div>
+
+				<div class="details">
+					<h3>Información personal</h3>
+					<div class="details-grid">
+						{details.map((d) => (
+							<div class="detail-item">
+								<span class="label">{d.label}</span>
+								<span class="value">{d.value}</span>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about {
+		padding: 1rem 0 5rem;
+		background: var(--bg);
+	}
+	.container {
+		width: min(1100px, 100% - 3rem);
+		margin-inline: auto;
+	}
+	h2 {
+		font-size: 2.5rem;
+		margin: 0 0 2rem;
+		text-align: center;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: 3rem;
+		align-items: start;
+	}
+	.photo-wrapper {
+		position: sticky;
+		top: 8rem;
+	}
+	.photo {
+		width: 100%;
+		border-radius: 1.5rem;
+		overflow: hidden;
+		box-shadow: var(--shadow);
+		object-fit: cover;
+	}
+	.intro-section {
+		margin-bottom: 2.5rem;
+	}
+	.intro-section h3 {
+		font-size: 1.3rem;
+		margin: 0 0 1rem;
+	}
+	.intro-section p {
+		margin: 0;
+		color: var(--muted);
+		line-height: 1.8;
+		font-size: 0.95rem;
+	}
+	.details {
+		padding: 0;
+		border-left: 3px solid var(--accent);
+		padding-left: 1.5rem;
+	}
+	.details h3 {
+		margin: 0 0 2rem;
+		font-size: 1.1rem;
+		font-weight: 600;
+	}
+	.details-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.5rem 3rem;
+	}
+	.detail-item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.label {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.35em;
+		color: var(--muted);
+		font-weight: 500;
+	}
+	.value {
+		font-weight: 600;
+		color: var(--text);
+		font-size: 1rem;
+		letter-spacing: 0.06em;
+	}
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			filter: blur(8px);
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			filter: blur(0);
+			transform: none;
+		}
+	}
+	.intro-section.in-view {
+		animation: fadeInUp 1.5s ease forwards;
+	}
+	@media (max-width: 860px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+		.photo-wrapper {
+			position: static;
+		}
+		.details-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+	.detail-item.in-view {
+		animation: fadeInUp 1.2s ease forwards;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.intro-section,
+		.detail-item {
+			animation: none !important;
+			opacity: 1;
+			filter: none;
+		}
+	}
+</style>
+
+<script>
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const el = entry.target as HTMLElement;
+					if (el.classList.contains('section') || el.classList.contains('detail-item')) {
+						el.classList.add('in-view');
+					}
+				}
+			});
+		},
+		{ threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+	);
+
+	document.querySelectorAll('.intro-section, .detail-item').forEach((el) => {
+		observer.observe(el);
+	});
+</script>

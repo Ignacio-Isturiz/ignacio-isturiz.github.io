@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+import Loader from '../components/Loader.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+const { title, description = 'Portafolio de Ignacio Isturiz' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="icon" href={`${base}/favicon.ico`} />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<script is:inline>
+			try {
+				const t = localStorage.getItem('theme');
+				if (t) document.documentElement.dataset.theme = t;
+			} catch {}
+		</script>
+	</head>
+	<body>
+		<Loader />
+		<slot />
+	</body>
+</html>

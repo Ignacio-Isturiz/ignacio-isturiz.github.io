@@ -1,0 +1,226 @@
+---
+const jobs = [
+	{
+		year: '2026 — Actualidad',
+		role: 'Líder de Semillero de IA e Investigación',
+		company: 'UNAULA · Medellín, Colombia',
+		desc: 'Lidero la coordinación técnica de proyectos de investigación enfocados en aplicaciones reales de inteligencia artificial. Diseño prototipos basados en modelos de lenguaje, aprendizaje automático y arquitecturas RAG, y acompaño a equipos multidisciplinarios en decisiones técnicas y evaluación de tecnologías.',
+		tags: ['Python', 'LLMs', 'RAG', 'LangChain', 'Embeddings', 'pgvector', 'Machine Learning'],
+	},
+	{
+		year: '2025 — 2026',
+		role: 'Desarrollador Odoo CRM',
+		company: 'CLODOFY · Madrid, España',
+		desc: 'Diseñé automatizaciones de mensajería por WhatsApp para procesos de atención y seguimiento, con una reducción del 85 % en los tiempos de respuesta. Desarrollé e integré módulos de Odoo adaptando el CRM a distintas organizaciones, personalizando interfaces y lógica de negocio.',
+		tags: ['Python', 'Odoo', 'OWL', 'Docker', 'PostgreSQL', 'Meta API', 'Cron Jobs'],
+	},
+];
+---
+
+<section id="experiencia" class="experience">
+	<div class="container">
+		<h2>Experiencia</h2>
+
+		<div class="timeline">
+			<div class="track" aria-hidden="true">
+				<span class="progress"></span>
+				<span class="dot"></span>
+			</div>
+
+			<ol class="items">
+				{jobs.map((job) => (
+					<li class="item">
+						<article class="card">
+							<span class="year">{job.year}</span>
+							<h3>{job.role}</h3>
+							<p class="company">{job.company}</p>
+							<p class="desc">{job.desc}</p>
+							<ul class="tags">
+								{job.tags.map((t) => <li>{t}</li>)}
+							</ul>
+						</article>
+					</li>
+				))}
+			</ol>
+		</div>
+	</div>
+</section>
+
+<style>
+	.experience {
+		padding: 4rem 0 6rem;
+		background: var(--bg);
+	}
+	.container {
+		width: min(1100px, 100% - 3rem);
+		margin-inline: auto;
+	}
+	h2 {
+		margin: 0 0 3.5rem;
+		font-size: clamp(2.2rem, 6vw, 4rem);
+		text-align: center;
+		background: linear-gradient(180deg, var(--text), color-mix(in srgb, var(--muted) 60%, transparent));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		/* Evita que el degradado recorte los trazos altos de la fuente. */
+		display: inline-block;
+		width: 100%;
+		padding: 0.1em 0;
+	}
+	.timeline {
+		display: grid;
+		grid-template-columns: 2rem 1fr;
+		gap: 0 2.5rem;
+		max-width: 780px;
+		margin-inline: auto;
+	}
+	.track {
+		position: relative;
+		justify-self: center;
+		width: 2px;
+		background: var(--border);
+		border-radius: 2px;
+	}
+	.progress {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: var(--p, 0%);
+		background: var(--accent);
+		border-radius: 2px;
+	}
+	.dot {
+		position: absolute;
+		top: var(--p, 0%);
+		left: 50%;
+		width: 13px;
+		height: 13px;
+		border: 2px solid var(--accent);
+		border-radius: 50%;
+		background: var(--bg);
+		transform: translate(-50%, -50%);
+	}
+	.items {
+		display: grid;
+		gap: 2.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.card {
+		padding: 2rem;
+		border: 1px solid var(--border);
+		border-radius: 1.25rem;
+		background: var(--surface);
+		opacity: 0;
+		filter: blur(8px);
+		transform: translateY(16px);
+	}
+	.item.in-view .card {
+		animation: reveal 1s ease forwards;
+	}
+	.year {
+		font-size: 0.78rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+	.card h3 {
+		margin: 0.9rem 0 0.4rem;
+		font-size: 1.45rem;
+		line-height: 1.25;
+	}
+	.company {
+		margin: 0;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+	.desc {
+		margin: 1.25rem 0 0;
+		color: var(--muted);
+		line-height: 1.8;
+		font-size: 0.95rem;
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 1.75rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.tags li {
+		padding: 0.45rem 0.85rem;
+		border: 1px solid var(--border);
+		border-radius: 0.6rem;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--text);
+	}
+	@keyframes reveal {
+		to {
+			opacity: 1;
+			filter: blur(0);
+			transform: none;
+		}
+	}
+	@media (max-width: 720px) {
+		.timeline {
+			grid-template-columns: 1rem 1fr;
+			gap: 0 1.25rem;
+		}
+		.card {
+			padding: 1.5rem;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.card {
+			animation: none !important;
+			opacity: 1;
+			filter: none;
+			transform: none;
+		}
+	}
+</style>
+
+<script>
+	const timeline = document.querySelector('.timeline') as HTMLElement | null;
+
+	if (timeline) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((e) => e.isIntersecting && e.target.classList.add('in-view'));
+			},
+			{ threshold: 0.15, rootMargin: '0px 0px -80px 0px' }
+		);
+		timeline.querySelectorAll('.item').forEach((el) => observer.observe(el));
+
+		let ticking = false;
+		const update = () => {
+			const r = timeline.getBoundingClientRect();
+			const anchor = innerHeight * 0.65;
+			const ratio = (anchor - r.top) / r.height;
+			timeline.style.setProperty('--p', `${Math.min(Math.max(ratio, 0), 1) * 100}%`);
+			ticking = false;
+		};
+		addEventListener(
+			'scroll',
+			() => {
+				if (!ticking) {
+					ticking = true;
+					requestAnimationFrame(update);
+				}
+			},
+			{ passive: true }
+		);
+		addEventListener('resize', update, { passive: true });
+		update();
+	}
+</script>
