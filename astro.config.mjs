@@ -7,6 +7,6 @@ const isUserSite = repo?.toLowerCase() === `${owner?.toLowerCase()}.github.io`;
 
 // https://astro.build/config
 export default defineConfig({
-	site: owner ? `https://${owner}.github.io` : undefined,
+	site: owner ? `https://${owner.toLowerCase()}.github.io` : undefined,
 	base: repo && !isUserSite ? `/${repo}` : '/',
 });
