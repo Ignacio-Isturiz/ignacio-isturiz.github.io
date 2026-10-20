@@ -1,6 +1,21 @@
 ---
-const projects = [
-	{ name: 'Usalo' },
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface Project {
+	name: string;
+	description?: string;
+	image?: string;
+	github?: string;
+	url?: string;
+}
+
+const projects: Project[] = [
+	{
+		name: 'Usalo',
+		description: 'Plataforma de alquiler de productos en Colombia que conecta a personas que necesitan artículos con quienes los tienen disponibles. Permite publicar, buscar y alquilar todo tipo de productos de forma rápida y segura.',
+		image: `${base}/logousalo.png`,
+		url: 'https://usaloapp.com/',
+	},
 	{ name: 'Luca: finanzas personales' },
 	{ name: 'GeoMed' },
 	{ name: 'ScoutOps' },
@@ -12,8 +27,8 @@ const projects = [
 	{ name: 'Agente WhatsApp Usalo' },
 ];
 
-const github = '<path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.5a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6 0C6.5 2.7 5.5 3 5.5 3a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.8 5.6 5.5 6a3 3 0 0 0-.8 2.3V21"/>';
-const external = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/>';
+const githubIcon = '<path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.5a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6 0C6.5 2.7 5.5 3 5.5 3a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.8 5.6 5.5 6a3 3 0 0 0-.8 2.3V21"/>';
+const externalIcon = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/>';
 ---
 
 <section id="proyectos" class="projects">
@@ -25,26 +40,46 @@ const external = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-
 				<li class="item">
 					<article class="card">
 						<div class="media">
-							<div class="thumb"><span>Imagen</span></div>
+							{p.image
+								? <img src={p.image} alt={p.name} class="thumb-img" />
+								: <div class="thumb"><span>Imagen</span></div>
+							}
 							<div class="bar">
-								<span class="ico" aria-hidden="true">
-									<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={github} />
-								</span>
-								<span class="ico" aria-hidden="true">
-									<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={external} />
-								</span>
+								{p.github && (
+									<a href={p.github} target="_blank" rel="noopener noreferrer" class="ico" aria-label="Repositorio GitHub">
+										<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={githubIcon} />
+									</a>
+								)}
+								{p.url && (
+									<a href={p.url} target="_blank" rel="noopener noreferrer" class="ico" aria-label="Ver proyecto">
+										<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={externalIcon} />
+									</a>
+								)}
+								{!p.github && !p.url && (
+									<>
+										<span class="ico" aria-hidden="true">
+											<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={githubIcon} />
+										</span>
+										<span class="ico" aria-hidden="true">
+											<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={externalIcon} />
+										</span>
+									</>
+								)}
 							</div>
 						</div>
 
 						<div class="body">
 							<h3>{p.name}</h3>
-							<div class="skeleton" role="presentation">
-								<span style="--w:92%"></span>
-								<span style="--w:98%"></span>
-								<span style="--w:85%"></span>
-								<span style="--w:95%"></span>
-								<span style="--w:70%"></span>
-							</div>
+							{p.description
+								? <p class="desc">{p.description}</p>
+								: <div class="skeleton" role="presentation">
+										<span style="--w:92%"></span>
+										<span style="--w:98%"></span>
+										<span style="--w:85%"></span>
+										<span style="--w:95%"></span>
+										<span style="--w:70%"></span>
+									</div>
+							}
 						</div>
 					</article>
 				</li>
@@ -115,6 +150,18 @@ const external = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-
 		text-transform: uppercase;
 		color: var(--muted);
 	}
+	.thumb-img {
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		display: block;
+	}
+	.desc {
+		margin: 0;
+		color: var(--muted);
+		line-height: 1.75;
+		font-size: 0.95rem;
+	}
 	.bar {
 		display: flex;
 		gap: 0.75rem;
@@ -170,8 +217,15 @@ const external = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-
 			grid-template-columns: 1fr;
 			gap: 1.5rem;
 		}
+		/* Siempre: nombre primero, imagen al final */
+		.card .body {
+			order: 1;
+		}
+		.card .media {
+			order: 2;
+		}
 		.item:nth-child(even) .media {
-			order: 0;
+			order: 2;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
