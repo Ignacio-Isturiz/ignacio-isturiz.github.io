@@ -5,6 +5,7 @@ interface Project {
 	name: string;
 	description?: string;
 	image?: string;
+	images?: string[];
 	github?: string;
 	url?: string;
 	appstore?: string;
@@ -27,6 +28,7 @@ const projects: Project[] = [
 	{
 		name: 'GeoMed',
 		description: 'Plataforma de información ciudadana para Medellín que combina IA, análisis de datos y seguridad. Incluye feed de noticias, chatbot de recomendaciones por zonas, mapas interactivos y módulo de servicios públicos. Stack: FastAPI + React + Docker.',
+		images: [`${base}/geomed-1.png`, `${base}/geomed-2.png`],
 		github: 'https://github.com/Ignacio-Isturiz/GeoMed',
 	},
 	{
@@ -66,9 +68,30 @@ const appstoreIcon = '<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.47
 				<li class="item">
 					<article class="card">
 						<div class="media">
-							{p.image
-								? <img src={p.image} alt={p.name} class="thumb-img" />
-								: <div class="thumb"><span>Imagen</span></div>
+							{p.images && p.images.length > 0
+								? (
+									<div class="carousel" data-carousel>
+										<div class="carousel-track">
+											{p.images.map((src, i) => (
+												<img src={src} alt={`${p.name} ${i + 1}`} class="carousel-slide" />
+											))}
+										</div>
+										{p.images.length > 1 && (
+											<>
+												<button class="carousel-btn prev" aria-label="Anterior">&#8249;</button>
+												<button class="carousel-btn next" aria-label="Siguiente">&#8250;</button>
+												<div class="carousel-dots">
+													{p.images.map((_, i) => (
+														<span class={`dot${i === 0 ? ' active' : ''}`} data-index={i} />
+													))}
+												</div>
+											</>
+										)}
+									</div>
+								)
+								: p.image
+									? <img src={p.image} alt={p.name} class="thumb-img" />
+									: <div class="thumb"><span>Imagen</span></div>
 							}
 							<div class="bar">
 								{p.github && (
@@ -187,6 +210,66 @@ const appstoreIcon = '<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.47
 		object-fit: cover;
 		display: block;
 	}
+	.carousel {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 16 / 10;
+	}
+	.carousel-track {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		transition: transform 0.4s ease;
+	}
+	.carousel-slide {
+		flex: 0 0 100%;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.carousel-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: color-mix(in srgb, var(--bg) 70%, transparent);
+		border: 1px solid var(--border);
+		color: var(--text);
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 1.2rem;
+		line-height: 1;
+		display: grid;
+		place-items: center;
+		transition: background 0.2s;
+		z-index: 2;
+	}
+	.carousel-btn:hover {
+		background: color-mix(in srgb, var(--bg) 90%, transparent);
+	}
+	.carousel-btn.prev { left: 0.5rem; }
+	.carousel-btn.next { right: 0.5rem; }
+	.carousel-dots {
+		position: absolute;
+		bottom: 0.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.4rem;
+		z-index: 2;
+	}
+	.dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: color-mix(in srgb, var(--text) 40%, transparent);
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+	.dot.active {
+		background: var(--text);
+	}
 	.desc {
 		margin: 0;
 		color: var(--muted);
@@ -291,4 +374,21 @@ const appstoreIcon = '<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.47
 		{ threshold: 0.15, rootMargin: '0px 0px -80px 0px' }
 	);
 	document.querySelectorAll('.projects .item').forEach((el) => observer.observe(el));
+
+	document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((carousel) => {
+		const track = carousel.querySelector<HTMLElement>('.carousel-track')!;
+		const dots = carousel.querySelectorAll<HTMLElement>('.dot');
+		let current = 0;
+		const total = dots.length;
+
+		function goTo(index: number) {
+			current = (index + total) % total;
+			track.style.transform = `translateX(-${current * 100}%)`;
+			dots.forEach((d, i) => d.classList.toggle('active', i === current));
+		}
+
+		carousel.querySelector('.prev')?.addEventListener('click', () => goTo(current - 1));
+		carousel.querySelector('.next')?.addEventListener('click', () => goTo(current + 1));
+		dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+	});
 </script>
