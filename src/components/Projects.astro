@@ -7,6 +7,7 @@ interface Project {
 	image?: string;
 	github?: string;
 	url?: string;
+	appstore?: string;
 }
 
 const projects: Project[] = [
@@ -16,7 +17,12 @@ const projects: Project[] = [
 		image: `${base}/logousalo.png`,
 		url: 'https://usaloapp.com/',
 	},
-	{ name: 'Luca: finanzas personales' },
+	{
+		name: 'Luca: finanzas personales',
+		description: 'App iOS de finanzas personales para el contexto venezolano. Registra ingresos y gastos en segundos con conversión automática USD/VES. Los datos se guardan en tu dispositivo y se sincronizan con iCloud — privacidad total, funciona sin internet.',
+		image: `${base}/logoluca.png`,
+		appstore: 'https://apps.apple.com/us/app/luca-finanzas-personales/id6762027713',
+	},
 	{ name: 'GeoMed' },
 	{ name: 'ScoutOps' },
 	{ name: 'CampusGo' },
@@ -29,6 +35,7 @@ const projects: Project[] = [
 
 const githubIcon = '<path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.5a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6 0C6.5 2.7 5.5 3 5.5 3a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.8 5.6 5.5 6a3 3 0 0 0-.8 2.3V21"/>';
 const externalIcon = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/>';
+const appstoreIcon = '<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1.5 14.5l-4-6.928 1.732-1 2.268 3.928 2.268-3.928 1.732 1-4 6.928zm6.5.5h-2V9h2v8z"/>';
 ---
 
 <section id="proyectos" class="projects">
@@ -50,12 +57,17 @@ const externalIcon = '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 
 										<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={githubIcon} />
 									</a>
 								)}
+								{p.appstore && (
+									<a href={p.appstore} target="_blank" rel="noopener noreferrer" class="ico" aria-label="Descargar en App Store">
+										<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" set:html={appstoreIcon} />
+									</a>
+								)}
 								{p.url && (
 									<a href={p.url} target="_blank" rel="noopener noreferrer" class="ico" aria-label="Ver proyecto">
 										<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={externalIcon} />
 									</a>
 								)}
-								{!p.github && !p.url && (
+								{!p.github && !p.url && !p.appstore && (
 									<>
 										<span class="ico" aria-hidden="true">
 											<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={githubIcon} />
