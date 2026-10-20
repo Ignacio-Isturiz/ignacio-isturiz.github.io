@@ -1,11 +1,13 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+type Slide = string | { src: string; contain?: boolean };
+
 interface Project {
 	name: string;
 	description?: string;
 	image?: string;
-	images?: string[];
+	images?: Slide[];
 	github?: string;
 	url?: string;
 	appstore?: string;
@@ -34,7 +36,7 @@ const projects: Project[] = [
 	{
 		name: 'ScoutOps',
 		description: 'Agente SRE de triaje de incidentes construido para el AgentX Hackathon 2026. Pipeline de 6 nodos en LangGraph que convierte reportes en trabajo accionable: diagnóstico con RAG, apertura automática de issues en GitHub, tickets en Jira y alertas por Slack. Stack: FastAPI, Gemini 2.5 Flash, ChromaDB, Next.js.',
-		images: [`${base}/scoutops-1.png`, `${base}/scoutops-2.png`],
+		images: [{ src: `${base}/scoutops-2.png`, contain: true }, `${base}/scoutops-1.png`],
 		github: 'https://github.com/Karlyvelasquez/ScoutOps',
 		url: 'https://youtu.be/stqzDbP8vUY?si=tODwDl1ZeBgnpKAq',
 	},
@@ -51,12 +53,12 @@ const projects: Project[] = [
 	{
 		name: 'Platon',
 		description: 'Plataforma de IA para docentes que transforma ideas de clase en planificaciones inclusivas basadas en el Diseño Universal para el Aprendizaje (DUA) y el ciclo pedagógico 5E. Stack: Next.js + TypeScript + FastAPI.',
-		images: [`${base}/platon-1.png`, `${base}/platon-2.png`],
+		images: [{ src: `${base}/platon-2.png`, contain: true }, `${base}/platon-1.png`],
 		github: 'https://github.com/Ignacio-Isturiz/platon',
 	},
 	{
 		name: 'Agente WhatsApp Usalo',
-		images: [`${base}/agente-1.png`, `${base}/agente-2.png`],
+		images: [{ src: `${base}/agente-1.png`, contain: true }, `${base}/agente-2.png`],
 	},
 ];
 
@@ -78,9 +80,11 @@ const appstoreIcon = '<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.47
 								? (
 									<div class="carousel" data-carousel>
 										<div class="carousel-track">
-											{p.images.map((src, i) => (
-												<img src={src} alt={`${p.name} ${i + 1}`} class="carousel-slide" />
-											))}
+											{p.images.map((slide, i) => {
+												const src = typeof slide === 'string' ? slide : slide.src;
+												const contain = typeof slide !== 'string' && slide.contain;
+												return <img src={src} alt={`${p.name} ${i + 1}`} class={`carousel-slide${contain ? ' carousel-slide--contain' : ''}`} />;
+											})}
 										</div>
 										{p.images.length > 1 && (
 											<>
@@ -232,6 +236,10 @@ const appstoreIcon = '<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.47
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+	.carousel-slide--contain {
+		object-fit: contain;
+		background: var(--surface);
 	}
 	.carousel-btn {
 		position: absolute;
