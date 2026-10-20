@@ -1,6 +1,7 @@
 ---
 const waPhone = '573124783081';
 const gmailTo = 'ignacioisturizr@gmail.com';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <section id="contacto" class="contact">
@@ -21,17 +22,7 @@ const gmailTo = 'ignacioisturizr@gmail.com';
 
 			<button class="contact-card" data-open="gmail" aria-label="Contactar por correo">
 				<div class="card-icon">
-					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
-						<path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z" fill="#f2f2f2"/>
-						<path d="M20 4H4L12 13l8-9z" fill="#D44638"/>
-						<path d="M2 6l10 7 10-7v12H2V6z" fill="#D44638" opacity=".15"/>
-						<path d="M4 4h16L12 13 4 4z" fill="#D44638"/>
-						<path d="M2 6v12h20V6L12 13 2 6z" fill="#fff" opacity="0"/>
-						<path d="M2 18V6l10 7 10-7v12H2z" fill="#F44336" opacity="0"/>
-						<g>
-							<path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z" fill="#D44638"/>
-						</g>
-					</svg>
+					<img src={`${base}/gmail-logo.png`} alt="Gmail" width="48" height="48" />
 				</div>
 				<span class="card-name">Gmail</span>
 				<span class="card-desc">Correo electrónico</span>
