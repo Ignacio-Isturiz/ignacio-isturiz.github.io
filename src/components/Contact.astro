@@ -1,0 +1,417 @@
+---
+const waPhone = '573124783081';
+const gmailTo = 'ignacioisturizr@gmail.com';
+---
+
+<section id="contacto" class="contact">
+	<div class="container">
+		<h2>Contacto</h2>
+		<p class="subtitle">¿Tienes un proyecto en mente? Escríbeme directamente.</p>
+
+		<div class="cards">
+			<button class="contact-card" data-open="whatsapp" aria-label="Contactar por WhatsApp">
+				<div class="card-icon">
+					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+						<path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+					</svg>
+				</div>
+				<span class="card-name">WhatsApp</span>
+				<span class="card-desc">Mensaje directo</span>
+			</button>
+
+			<button class="contact-card" data-open="gmail" aria-label="Contactar por correo">
+				<div class="card-icon">
+					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
+						<path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z" fill="#f2f2f2"/>
+						<path d="M20 4H4L12 13l8-9z" fill="#D44638"/>
+						<path d="M2 6l10 7 10-7v12H2V6z" fill="#D44638" opacity=".15"/>
+						<path d="M4 4h16L12 13 4 4z" fill="#D44638"/>
+						<path d="M2 6v12h20V6L12 13 2 6z" fill="#fff" opacity="0"/>
+						<path d="M2 18V6l10 7 10-7v12H2z" fill="#F44336" opacity="0"/>
+						<g>
+							<path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z" fill="#D44638"/>
+						</g>
+					</svg>
+				</div>
+				<span class="card-name">Gmail</span>
+				<span class="card-desc">Correo electrónico</span>
+			</button>
+		</div>
+	</div>
+</section>
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+
+	<!-- WhatsApp modal -->
+	<div class="modal" id="modal-whatsapp" role="dialog" aria-modal="true" aria-labelledby="wa-title" aria-hidden="true">
+		<div class="modal-head">
+			<div class="mh-icon wa-color">
+				<svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+					<path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+				</svg>
+			</div>
+			<h3 id="wa-title">WhatsApp</h3>
+			<button class="modal-close" data-close aria-label="Cerrar">&times;</button>
+		</div>
+		<div class="modal-body">
+			<div class="recipient-row">
+				<span class="to-label">Para</span>
+				<span class="to-chip">Ignacio · +57 312 478 3081</span>
+			</div>
+			<label for="wa-text" class="field-label">Mensaje</label>
+			<textarea id="wa-text" class="field-textarea" placeholder="Escribe tu mensaje..." rows="5"></textarea>
+		</div>
+		<div class="modal-foot">
+			<button class="btn-cancel" data-close>Cancelar</button>
+			<button class="btn-send wa-send" id="btn-wa-send">
+				<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+					<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+				</svg>
+				Enviar
+			</button>
+		</div>
+	</div>
+
+	<!-- Gmail modal -->
+	<div class="modal" id="modal-gmail" role="dialog" aria-modal="true" aria-labelledby="gm-title" aria-hidden="true">
+		<div class="modal-head">
+			<div class="mh-icon gm-color">
+				<svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+					<path fill="#fff" d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+				</svg>
+			</div>
+			<h3 id="gm-title">Gmail</h3>
+			<button class="modal-close" data-close aria-label="Cerrar">&times;</button>
+		</div>
+		<div class="modal-body">
+			<div class="recipient-row">
+				<span class="to-label">Para</span>
+				<span class="to-chip">ignacioisturizr@gmail.com</span>
+			</div>
+			<label for="gm-text" class="field-label">Mensaje</label>
+			<textarea id="gm-text" class="field-textarea" placeholder="Escribe tu mensaje..." rows="5"></textarea>
+		</div>
+		<div class="modal-foot">
+			<button class="btn-cancel" data-close>Cancelar</button>
+			<button class="btn-send gm-send" id="btn-gm-send">
+				<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+					<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+				</svg>
+				Enviar
+			</button>
+		</div>
+	</div>
+
+</div>
+
+<style>
+	.contact {
+		padding: 4rem 0 6rem;
+		background: var(--bg);
+	}
+	.container {
+		width: min(900px, 100% - 3rem);
+		margin-inline: auto;
+		text-align: center;
+	}
+	h2 {
+		font-size: 2.5rem;
+		margin: 0 0 0.75rem;
+	}
+	.subtitle {
+		margin: 0 0 3rem;
+		color: var(--muted);
+		font-size: 1rem;
+	}
+	.cards {
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.contact-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 2.5rem 3rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 1.5rem;
+		cursor: pointer;
+		transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+		font-family: inherit;
+		min-width: 180px;
+	}
+	.contact-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow);
+		border-color: var(--muted);
+	}
+	.contact-card:active {
+		transform: translateY(-1px);
+	}
+	.card-icon {
+		width: 64px;
+		height: 64px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.card-name {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--text);
+	}
+	.card-desc {
+		font-size: 0.85rem;
+		color: var(--muted);
+	}
+
+	/* Backdrop */
+	.modal-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgb(0 0 0 / 0.55);
+		backdrop-filter: blur(4px);
+		z-index: 999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.25s;
+	}
+	.modal-backdrop.open {
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	/* Modal */
+	.modal {
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 1.5rem;
+		width: min(480px, 100%);
+		box-shadow: 0 24px 60px rgb(0 0 0 / 0.3);
+		display: none;
+		flex-direction: column;
+		gap: 0;
+		overflow: hidden;
+		transform: translateY(12px);
+		transition: transform 0.25s;
+	}
+	.modal.active {
+		display: flex;
+		transform: translateY(0);
+	}
+
+	/* Modal header */
+	.modal-head {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1.25rem 1.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+	.mh-icon {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+	.wa-color { background: #25D366; }
+	.gm-color { background: #D44638; }
+	.modal-head h3 {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+		flex: 1;
+		color: var(--text);
+	}
+	.modal-close {
+		background: none;
+		border: none;
+		font-size: 1.4rem;
+		line-height: 1;
+		cursor: pointer;
+		color: var(--muted);
+		padding: 0.25rem 0.5rem;
+		border-radius: 0.5rem;
+		transition: background 0.15s, color 0.15s;
+		font-family: inherit;
+	}
+	.modal-close:hover {
+		background: var(--border);
+		color: var(--text);
+	}
+
+	/* Modal body */
+	.modal-body {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.recipient-row {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+	.to-label {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--muted);
+		font-weight: 500;
+		white-space: nowrap;
+	}
+	.to-chip {
+		background: var(--bg);
+		border: 1px solid var(--border);
+		border-radius: 2rem;
+		padding: 0.3rem 0.85rem;
+		font-size: 0.875rem;
+		color: var(--text);
+	}
+	.field-label {
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--muted);
+		font-weight: 500;
+	}
+	.field-textarea {
+		width: 100%;
+		padding: 0.875rem 1rem;
+		background: var(--bg);
+		border: 1px solid var(--border);
+		border-radius: 0.875rem;
+		color: var(--text);
+		font-family: inherit;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		resize: vertical;
+		outline: none;
+		transition: border-color 0.15s;
+	}
+	.field-textarea:focus {
+		border-color: var(--muted);
+	}
+
+	/* Modal footer */
+	.modal-foot {
+		display: flex;
+		justify-content: flex-end;
+		gap: 0.75rem;
+		padding: 1rem 1.5rem;
+		border-top: 1px solid var(--border);
+	}
+	.btn-cancel {
+		background: none;
+		border: 1px solid var(--border);
+		color: var(--muted);
+		padding: 0.6rem 1.25rem;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 0.9rem;
+		transition: background 0.15s, color 0.15s;
+	}
+	.btn-cancel:hover {
+		background: var(--border);
+		color: var(--text);
+	}
+	.btn-send {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		border: none;
+		color: #fff;
+		padding: 0.6rem 1.4rem;
+		border-radius: 0.625rem;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: 0.9rem;
+		font-weight: 500;
+		transition: opacity 0.15s, transform 0.15s;
+	}
+	.btn-send:hover { opacity: 0.88; }
+	.btn-send:active { transform: scale(0.97); }
+	.wa-send { background: #25D366; }
+	.gm-send { background: #D44638; }
+</style>
+
+<script>
+	const backdrop = document.getElementById('modal-backdrop')!;
+	const waModal  = document.getElementById('modal-whatsapp')!;
+	const gmModal  = document.getElementById('modal-gmail')!;
+
+	function openModal(modal: HTMLElement) {
+		waModal.classList.remove('active');
+		gmModal.classList.remove('active');
+		modal.classList.add('active');
+		backdrop.classList.add('open');
+		backdrop.setAttribute('aria-hidden', 'false');
+		modal.setAttribute('aria-hidden', 'false');
+		const textarea = modal.querySelector<HTMLTextAreaElement>('textarea');
+		textarea?.focus();
+	}
+
+	function closeAll() {
+		[waModal, gmModal].forEach((m) => {
+			m.classList.remove('active');
+			m.setAttribute('aria-hidden', 'true');
+		});
+		backdrop.classList.remove('open');
+		backdrop.setAttribute('aria-hidden', 'true');
+	}
+
+	// Open buttons
+	document.querySelectorAll<HTMLButtonElement>('[data-open]').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const target = btn.dataset.open;
+			if (target === 'whatsapp') openModal(waModal);
+			else if (target === 'gmail') openModal(gmModal);
+		});
+	});
+
+	// Close buttons and backdrop click
+	document.querySelectorAll('[data-close]').forEach((btn) => {
+		btn.addEventListener('click', closeAll);
+	});
+	backdrop.addEventListener('click', (e) => {
+		if (e.target === backdrop) closeAll();
+	});
+
+	// ESC key
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') closeAll();
+	});
+
+	// WhatsApp send
+	document.getElementById('btn-wa-send')!.addEventListener('click', () => {
+		const msg = (document.getElementById('wa-text') as HTMLTextAreaElement).value.trim();
+		if (!msg) return;
+		const url = `https://wa.me/573124783081?text=${encodeURIComponent(msg)}`;
+		window.open(url, '_blank', 'noopener');
+		closeAll();
+		(document.getElementById('wa-text') as HTMLTextAreaElement).value = '';
+	});
+
+	// Gmail send
+	document.getElementById('btn-gm-send')!.addEventListener('click', () => {
+		const msg = (document.getElementById('gm-text') as HTMLTextAreaElement).value.trim();
+		if (!msg) return;
+		const subject = encodeURIComponent('Contacto desde portafolio');
+		const body    = encodeURIComponent(msg);
+		window.location.href = `mailto:ignacioisturizr@gmail.com?subject=${subject}&body=${body}`;
+		closeAll();
+		(document.getElementById('gm-text') as HTMLTextAreaElement).value = '';
+	});
+</script>
